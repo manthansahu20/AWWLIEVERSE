@@ -6,22 +6,21 @@
 "use strict";
 
 const BirthdayCake = (() => {
-
     const CANDLE_DURATION = 5000;
+    const FLAME_ANIMATION_DURATION = 450;
 
     let candleTimer = null;
+    let animationFrame = null;
+    let flameHideTimer = null;
     let cakeStarted = false;
     let candleBlownOut = false;
 
-    const getElement = (id) => {
-        return document.getElementById(id);
-    };
+    const getElement = (id) => document.getElementById(id);
 
     /**
      * Starts the birthday cake experience.
      */
     function start() {
-
         const flame = getElement("candle-flame");
         const message = getElement("cake-message");
         const timerDisplay = getElement("cake-timer");
@@ -33,13 +32,26 @@ const BirthdayCake = (() => {
             return;
         }
 
-        // Prevent duplicate timers.
-        if (cakeStarted) {
-            return;
-        }
+        // Prevent duplicate countdowns and timers.
+        if (cakeStarted) return;
 
         cakeStarted = true;
         candleBlownOut = false;
+
+        if (candleTimer !== null) {
+            clearTimeout(candleTimer);
+            candleTimer = null;
+        }
+
+        if (flameHideTimer !== null) {
+            clearTimeout(flameHideTimer);
+            flameHideTimer = null;
+        }
+
+        if (animationFrame !== null) {
+            cancelAnimationFrame(animationFrame);
+            animationFrame = null;
+        }
 
         flame.classList.remove("blown-out");
         flame.hidden = false;
@@ -50,61 +62,61 @@ const BirthdayCake = (() => {
         }
 
         if (timerDisplay) {
-            timerDisplay.textContent =
-                "Make your wish... 💖";
+            timerDisplay.textContent = "Make your wish... 5";
         }
 
-        // Start the five-second candle timer.
         const startTime = Date.now();
 
+        // Automatically extinguish the candle after five seconds.
         candleTimer = setTimeout(() => {
             blowOutCandle();
         }, CANDLE_DURATION);
 
-        // Optional visible countdown.
+        // Update the visible countdown without creating an interval.
         if (timerDisplay) {
-
             function updateTimer() {
-
                 if (candleBlownOut) {
+                    animationFrame = null;
                     return;
                 }
 
                 const elapsed = Date.now() - startTime;
-
                 const remaining = Math.max(
                     0,
                     Math.ceil((CANDLE_DURATION - elapsed) / 1000)
                 );
 
-                timerDisplay.textContent =
-                    remaining > 0
-                        ? `Make your wish... ${remaining}`
-                        : "Your wish is on its way! ✨";
+                timerDisplay.textContent = remaining > 0
+                    ? `Make your wish... ${remaining}`
+                    : "Your wish is on its way! ✨";
 
                 if (remaining > 0) {
-                    requestAnimationFrame(updateTimer);
+                    animationFrame = requestAnimationFrame(updateTimer);
+                } else {
+                    animationFrame = null;
                 }
             }
 
-            requestAnimationFrame(updateTimer);
+            animationFrame = requestAnimationFrame(updateTimer);
         }
     }
 
     /**
-     * Extinguishes the candle flame.
+     * Extinguishes the candle and notifies the website.
      */
     function blowOutCandle() {
-
-        if (candleBlownOut) {
-            return;
-        }
+        if (candleBlownOut) return;
 
         candleBlownOut = true;
 
         if (candleTimer !== null) {
             clearTimeout(candleTimer);
             candleTimer = null;
+        }
+
+        if (animationFrame !== null) {
+            cancelAnimationFrame(animationFrame);
+            animationFrame = null;
         }
 
         const flame = getElement("candle-flame");
@@ -114,10 +126,10 @@ const BirthdayCake = (() => {
         if (flame) {
             flame.classList.add("blown-out");
 
-            // Hide the flame after its extinguishing animation.
-            setTimeout(() => {
+            flameHideTimer = setTimeout(() => {
                 flame.hidden = true;
-            }, 450);
+                flameHideTimer = null;
+            }, FLAME_ANIMATION_DURATION);
         }
 
         if (message) {
@@ -130,30 +142,48 @@ const BirthdayCake = (() => {
                 "Wish made. A little birthday magic begins! ✨";
         }
 
-        // Notify the rest of the website.
         document.dispatchEvent(
             new CustomEvent("awwlie:candle-blown-out")
         );
     }
 
     /**
-     * Resets the cake experience if needed.
+     * Resets the cake experience.
      */
     function reset() {
-
         if (candleTimer !== null) {
             clearTimeout(candleTimer);
             candleTimer = null;
+        }
+
+        if (animationFrame !== null) {
+            cancelAnimationFrame(animationFrame);
+            animationFrame = null;
+        }
+
+        if (flameHideTimer !== null) {
+            clearTimeout(flameHideTimer);
+            flameHideTimer = null;
         }
 
         cakeStarted = false;
         candleBlownOut = false;
 
         const flame = getElement("candle-flame");
+        const message = getElement("cake-message");
+        const timerDisplay = getElement("cake-timer");
 
         if (flame) {
             flame.classList.remove("blown-out");
             flame.hidden = false;
+        }
+
+        if (message) {
+            message.textContent = "";
+        }
+
+        if (timerDisplay) {
+            timerDisplay.textContent = "";
         }
     }
 
@@ -162,18 +192,12 @@ const BirthdayCake = (() => {
         blowOutCandle,
         reset
     };
-
 })();
 
-/* Make the cake system available to other scripts. */
+// Make the cake system available to other scripts.
 window.BirthdayCake = BirthdayCake;
 
-/*
- * Start the candle experience when the countdown finishes.
- */
-document.addEventListener(
-    "awwlie:countdown-complete",
-    () => {
-        BirthdayCake.start();
-    }
-);
+// Start the candle experience when the countdown finishes.
+document.addEventListener("awwlie:countdown-complete", () => {
+    BirthdayCake.start();
+});
