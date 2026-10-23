@@ -8,6 +8,7 @@
 const Awwlieverse = (() => {
 
     let initialized = false;
+    let experienceStarted = false;
 
     // Find an HTML element by ID
     function getElement(id) {
@@ -17,23 +18,15 @@ const Awwlieverse = (() => {
     // Start the birthday experience
     function startExperience() {
 
+        if (experienceStarted) return;
+
         const startButton = getElement("start-button");
 
-        if (startButton) {
-            startButton.disabled = true;
-            startButton.textContent = "Your universe is opening... ✨";
-        }
-
-        // Start the countdown
+        // Check whether the countdown module exists
         if (
-            window.BirthdayCountdown &&
-            typeof window.BirthdayCountdown.start === "function"
+            !window.BirthdayCountdown ||
+            typeof window.BirthdayCountdown.start !== "function"
         ) {
-
-            window.BirthdayCountdown.start();
-
-        } else {
-
             console.error(
                 "AWWLIEVERSE: Countdown script could not be found."
             );
@@ -43,11 +36,34 @@ const Awwlieverse = (() => {
                 startButton.textContent = "Open Your Universe ✨";
             }
 
+            return;
         }
 
+        experienceStarted = true;
+
+        if (startButton) {
+            startButton.disabled = true;
+            startButton.textContent = "Your universe is opening... ✨";
+        }
+
+        window.BirthdayCountdown.start();
     }
 
-    // Add a gentle animation when a section opens
+    // Initialize a module safely
+    function initializeModule(moduleName) {
+
+        const module = window[moduleName];
+
+        if (module && typeof module.init === "function") {
+            module.init();
+        } else {
+            console.warn(
+                `AWWLIEVERSE: ${moduleName} is unavailable.`
+            );
+        }
+    }
+
+    // Initialize all sections with their animation class
     function setupSectionAnimations() {
 
         const sections = document.querySelectorAll(
@@ -56,13 +72,11 @@ const Awwlieverse = (() => {
 
         sections.forEach((section) => {
 
-            section.addEventListener("transitionend", () => {
-
-                if (!section.hidden) {
-                    section.classList.add("animate-in");
-                }
-
-            });
+            // Hidden sections will animate when shown by the
+            // shared section navigation function.
+            if (!section.hidden) {
+                section.classList.add("animate-in");
+            }
 
         });
 
@@ -80,11 +94,7 @@ const Awwlieverse = (() => {
             return;
         }
 
-        startButton.addEventListener(
-            "click",
-            startExperience
-        );
-
+        startButton.addEventListener("click", startExperience);
     }
 
     // Initialize the main controller
@@ -97,23 +107,15 @@ const Awwlieverse = (() => {
         setupStartButton();
         setupSectionAnimations();
 
-        // Initialize the other modules safely
-        if (window.VoiceMessages) {
-            window.VoiceMessages.init();
-        }
-
-        if (window.SurpriseLetter) {
-            window.SurpriseLetter.init();
-        }
-
-        if (window.BirthdaySurprises) {
-            window.BirthdaySurprises.init();
-        }
+        // Initialize modules used by the website.
+        // Each module has its own initialization guard.
+        initializeModule("VoiceMessages");
+        initializeModule("SurpriseLetter");
+        initializeModule("BirthdaySurprises");
 
         console.log(
             "🌙 AWWLIEVERSE initialized successfully!"
         );
-
     }
 
     return {
