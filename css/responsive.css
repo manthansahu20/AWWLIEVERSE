@@ -432,3 +432,37 @@
         transition-duration: 0.01ms !important;
     }
 }
+/* AWWLIEVERSE: Compact floating music button */
+
+.music-toggle {
+    position: fixed !important;
+    top: auto !important;
+    left: auto !important;
+    right: 16px !important;
+    bottom: 80px !important;
+
+    width: 50px !important;
+    height: 50px !important;
+    min-width: 50px !important;
+    min-height: 50px !important;
+
+    padding: 0 !important;
+    border-radius: 50% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    font-size: 0 !important;
+    background: linear-gradient(135deg, #f7a8e4, #a78bfa) !important;
+    color: #281536 !important;
+
+    box-sizing: border-box !important;
+    z-index: 9999 !important;
+}
+
+.music-toggle::before {
+    content: "♫";
+    font-size: 25px;
+    line-height: 1;
+}
