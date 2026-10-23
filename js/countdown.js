@@ -6,26 +6,16 @@
 "use strict";
 
 const BirthdayCountdown = (() => {
-
     let countdownInterval = null;
+    let transitionTimeout = null;
     let isRunning = false;
 
-    const getElement = (id) => {
-        return document.getElementById(id);
-    };
+    const getElement = (id) => document.getElementById(id);
 
     /**
-     * Displays the selected section and hides the others.
-     * The section must exist in index.html.
+     * Shows one section and hides all other main sections.
      */
     function showSection(sectionId) {
-        const sections = document.querySelectorAll("main section");
-
-        sections.forEach((section) => {
-            section.hidden = section.id !== sectionId;
-            section.classList.remove("animate-in");
-        });
-
         const targetSection = getElement(sectionId);
 
         if (!targetSection) {
@@ -35,24 +25,40 @@ const BirthdayCountdown = (() => {
             return false;
         }
 
-        targetSection.hidden = false;
+        const sections = document.querySelectorAll("main section");
 
-        // Restart the entrance animation.
+        sections.forEach((section) => {
+            section.hidden = section !== targetSection;
+            section.classList.remove("animate-in");
+        });
+
+        // Restart the section entrance animation.
         void targetSection.offsetWidth;
-
         targetSection.classList.add("animate-in");
 
         return true;
     }
 
     /**
+     * Clears countdown timers if necessary.
+     */
+    function clearTimers() {
+        if (countdownInterval !== null) {
+            clearInterval(countdownInterval);
+            countdownInterval = null;
+        }
+
+        if (transitionTimeout !== null) {
+            clearTimeout(transitionTimeout);
+            transitionTimeout = null;
+        }
+    }
+
+    /**
      * Starts the countdown from 10 to 0.
      */
     function start() {
-
-        if (isRunning) {
-            return;
-        }
+        if (isRunning) return;
 
         const countdownDisplay = getElement("countdown-number");
 
@@ -63,67 +69,56 @@ const BirthdayCountdown = (() => {
             return;
         }
 
+        if (!showSection("countdown-section")) return;
+
+        clearTimers();
         isRunning = true;
-
-        if (countdownInterval !== null) {
-            clearInterval(countdownInterval);
-        }
-
-        showSection("countdown-section");
 
         let count = 10;
 
         function updateCountdown() {
-
-            countdownDisplay.textContent = count;
+            countdownDisplay.textContent = String(count);
 
             countdownDisplay.classList.remove("countdown-change");
 
-            // Restart the number-change animation.
+            // Restart the number animation.
             void countdownDisplay.offsetWidth;
-
             countdownDisplay.classList.add("countdown-change");
 
             if (count === 0) {
+                if (countdownInterval !== null) {
+                    clearInterval(countdownInterval);
+                    countdownInterval = null;
+                }
 
-                clearInterval(countdownInterval);
-                countdownInterval = null;
-
-                // Brief pause before revealing the cake.
-                setTimeout(() => {
-
+                transitionTimeout = setTimeout(() => {
+                    transitionTimeout = null;
                     isRunning = false;
 
-                    showSection("cake-section");
+                    if (!showSection("cake-section")) return;
 
-                    // Notify the cake script that the cake is visible.
+                    // Notify cake.js that the cake section is visible.
                     document.dispatchEvent(
                         new CustomEvent("awwlie:countdown-complete")
                     );
-
                 }, 1000);
 
                 return;
             }
 
-            count--;
+            count -= 1;
         }
 
-        // Show 10 immediately, then update every second.
+        // Display 10 immediately, then update every second.
         updateCountdown();
-
         countdownInterval = setInterval(updateCountdown, 1000);
     }
 
-    /**
-     * Allows other scripts to start the countdown.
-     */
     return {
         start,
         showSection
     };
-
 })();
 
-/* Make the countdown available to the other scripts. */
+// Make the countdown available to other scripts.
 window.BirthdayCountdown = BirthdayCountdown;
