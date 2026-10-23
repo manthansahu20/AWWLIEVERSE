@@ -6,10 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#100b24">
 
-    <meta
-        name="description"
-        content="A little universe created especially for Awwlie, celebrating our memories and friendship."
-    >
+    <meta name="description"
+        content="A little universe created especially for Awwlie, celebrating our memories, laughter, and friendship.">
 
     <title>AWWLIEVERSE — Your Little Universe</title>
 
@@ -17,6 +15,9 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/responsive.css">
+
+    <!-- Optional browser tab icon, if added later -->
+    <!-- <link rel="icon" href="assets/icons/favicon.png"> -->
 </head>
 
 <body>
@@ -24,6 +25,23 @@
     <!-- Background Effects -->
     <div id="star-background" aria-hidden="true"></div>
     <div id="confetti-container" aria-hidden="true"></div>
+
+    <!-- Background Music -->
+    <audio id="background-music" loop preload="none">
+        <source src="assets/music/background-music.mp3" type="audio/mpeg">
+        Your browser does not support background music.
+    </audio>
+
+    <!-- Music Control -->
+    <button
+        id="music-toggle"
+        class="music-toggle"
+        type="button"
+        aria-label="Play background music"
+        aria-pressed="false"
+    >
+        ♫ Music Off
+    </button>
 
     <!-- Main Birthday Experience -->
     <main id="birthday-app">
@@ -33,17 +51,22 @@
 
             <div class="intro-content">
 
-                <p class="eyebrow">
-                    A LITTLE UNIVERSE MADE FOR YOU
-                </p>
+                <p class="eyebrow">A LITTLE UNIVERSE MADE FOR YOU</p>
 
-                <div class="moon-icon" aria-hidden="true">
-                    ☾
+                <!-- Cover Photo -->
+                <div class="cover-photo-container">
+                    <img
+                        id="awwlie-cover"
+                        class="cover-photo"
+                        src="assets/images/awwlie-cover.jpg"
+                        alt="A special cover photo dedicated to Awwlie"
+                        fetchpriority="high"
+                    >
                 </div>
 
-                <h1 id="intro-title">
-                    Hey, Awwlie!
-                </h1>
+                <div class="moon-icon" aria-hidden="true">☾</div>
+
+                <h1 id="intro-title">Hey, Awwlie!</h1>
 
                 <p class="intro-description">
                     Someone has created a little universe just for you.
@@ -58,16 +81,11 @@
                     Are you ready to discover it?
                 </p>
 
-                <button
-                    id="start-button"
-                    class="primary-button"
-                    type="button"
-                >
+                <button id="start-button" class="primary-button" type="button">
                     Open Your Universe ✨
                 </button>
 
             </div>
-
         </section>
 
 
@@ -79,31 +97,20 @@
             aria-labelledby="countdown-title"
             aria-live="polite"
         >
-
             <div class="countdown-content">
 
-                <p class="eyebrow">
-                    SOMETHING MAGICAL IS COMING
-                </p>
+                <p class="eyebrow">SOMETHING MAGICAL IS COMING</p>
 
-                <h2 id="countdown-title">
-                    Get Ready!
-                </h2>
+                <h2 id="countdown-title">Get Ready!</h2>
 
-                <div
-                    id="countdown-number"
-                    class="countdown-number"
-                    aria-label="Birthday countdown"
-                >
+                <div id="countdown-number" class="countdown-number"
+                    aria-label="Birthday countdown">
                     10
                 </div>
 
-                <p>
-                    Your birthday magic begins now...
-                </p>
+                <p>Your birthday magic begins now...</p>
 
             </div>
-
         </section>
 
 
@@ -114,19 +121,15 @@
             hidden
             aria-labelledby="cake-title"
         >
-
             <div class="cake-content">
 
-                <p class="eyebrow">
-                    A WISH JUST FOR YOU
-                </p>
+                <p class="eyebrow">A WISH JUST FOR YOU</p>
 
                 <h2 id="cake-title">
                     Happy Birthday,
                     <span class="highlight-name">Awwlie!</span>
                 </h2>
 
-                <!-- Candle -->
                 <div
                     id="candle"
                     class="candle"
@@ -140,26 +143,19 @@
                     >🔥</span>
                 </div>
 
-                <!-- Cake Illustration -->
                 <div
                     id="birthday-cake"
                     class="birthday-cake"
                     role="img"
                     aria-label="Birthday cake"
-                >
-                    🎂
-                </div>
+                >🎂</div>
 
                 <p id="cake-message" class="cake-message">
                     Close your eyes, make a wish,
-                    and blow out your candle!
+                    and enjoy this magical moment!
                 </p>
 
-                <p
-                    id="cake-timer"
-                    class="cake-timer"
-                    aria-live="polite"
-                >
+                <p id="cake-timer" class="cake-timer" aria-live="polite">
                     Your magical moment is here.
                 </p>
 
@@ -168,7 +164,6 @@
                 </p>
 
             </div>
-
         </section>
 
 
@@ -179,16 +174,12 @@
             hidden
             aria-labelledby="surprise-title"
         >
-
             <div class="surprise-content">
 
-                <p class="eyebrow">
-                    THE REAL SURPRISE BEGINS
-                </p>
+                <p class="eyebrow">THE REAL SURPRISE BEGINS</p>
 
                 <h2 id="surprise-title">
-                    A Little World,
-                    Just for You 💖
+                    A Little World, Just for You 💖
                 </h2>
 
                 <p class="birthday-message">
@@ -198,199 +189,190 @@
                 </p>
 
                 <p>
-                    This little universe is a reminder
-                    that some people make ordinary moments
-                    extraordinary.
+                    This little universe is a reminder that some people
+                    make ordinary moments extraordinary.
                 </p>
 
                 <p>
-                    And trust me...
-                    there is so much more waiting for you.
+                    And trust me... there is so much more waiting for you.
                 </p>
 
-                <button
-                    id="open-memories-button"
-                    class="primary-button"
-                    type="button"
-                >
+                <button id="open-memories-button" class="primary-button" type="button">
                     Let's See Our Memories 📸
                 </button>
 
             </div>
-
         </section>
 
 
-        <!-- SECTION 5: PHOTO GALLERY -->
+        <!-- SECTION 5: MAIN PHOTO GALLERY -->
         <section
             id="gallery-section"
             class="screen"
             hidden
             aria-labelledby="gallery-title"
         >
-
             <div class="section-content">
 
-                <p class="eyebrow">
-                    LITTLE MOMENTS, BIG MEMORIES
-                </p>
+                <p class="eyebrow">LITTLE MOMENTS, BIG MEMORIES</p>
 
-                <h2 id="gallery-title">
-                    Our Little Scrapbook 📸
-                </h2>
+                <h2 id="gallery-title">Our Little Scrapbook 📸</h2>
 
                 <p>
                     Every picture has a story.
                     These are some of ours.
                 </p>
 
-                <!-- JavaScript inserts the photos here -->
+                <!-- 9 main photos are inserted by gallery.js -->
                 <div
                     id="gallery-grid"
                     class="gallery-grid"
-                    aria-label="Our friendship memories"
+                    aria-label="Our friendship photo gallery"
                 ></div>
 
                 <button
-                    id="open-voice-button"
+                    id="open-memory-gallery-button"
                     class="primary-button"
                     type="button"
                 >
+                    Explore Our Little Memories 🌙
+                </button>
+
+                <button id="open-voice-button" class="primary-button" type="button">
                     There's Something to Hear 🎙️
                 </button>
 
             </div>
-
         </section>
 
 
-        <!-- SECTION 6: VOICE MESSAGES -->
+        <!-- SECTION 6: MEMORY GALLERY -->
+        <section
+            id="memory-gallery-section"
+            class="screen"
+            hidden
+            aria-labelledby="memory-gallery-title"
+        >
+            <div class="section-content">
+
+                <p class="eyebrow">OUR MEMORIES, FOREVER OURS</p>
+
+                <h2 id="memory-gallery-title">Little Memories 💜</h2>
+
+                <p>
+                    Ten little moments from our own little universe.
+                </p>
+
+                <!-- 10 memory photos are inserted by gallery.js -->
+                <div
+                    id="memory-gallery-grid"
+                    class="gallery-grid memory-gallery-grid"
+                    aria-label="Our memory photo gallery"
+                ></div>
+
+                <button
+                    id="back-to-gallery-button"
+                    class="secondary-button"
+                    type="button"
+                >
+                    Back to Our Scrapbook
+                </button>
+
+                <button id="open-voice-from-memories-button"
+                    class="primary-button" type="button">
+                    There's Something to Hear 🎙️
+                </button>
+
+            </div>
+        </section>
+
+
+        <!-- PHOTO VIEWER -->
+        <dialog id="photo-viewer" class="photo-viewer" aria-label="Photo viewer">
+            <button
+                id="close-photo-viewer"
+                class="close-viewer-button"
+                type="button"
+                aria-label="Close photo viewer"
+            >✕</button>
+
+            <img id="viewer-image" src="" alt="Expanded memory photo">
+
+            <p id="viewer-caption" class="viewer-caption"></p>
+        </dialog>
+
+
+        <!-- SECTION 7: VOICE MESSAGES -->
         <section
             id="voice-section"
             class="screen"
             hidden
             aria-labelledby="voice-title"
         >
-
             <div class="section-content">
 
-                <p class="eyebrow">
-                    A MESSAGE FROM MY HEART
-                </p>
+                <p class="eyebrow">A MESSAGE FROM MY HEART</p>
 
-                <h2 id="voice-title">
-                    A Voice You'll Recognise 🎙️
-                </h2>
+                <h2 id="voice-title">A Voice You'll Recognise 🎙️</h2>
 
-                <p>
-                    Some messages feel more special
-                    when they're spoken.
-                </p>
+                <p>Some messages feel more special when they're spoken.</p>
 
-
-                <!-- Voice Message 1 -->
                 <article class="audio-card">
+                    <h3>A Birthday Message 💌</h3>
 
-                    <h3>
-                        A Birthday Message 💌
-                    </h3>
-
-                    <p>
-                        A little birthday wish,
-                        recorded specially for you.
-                    </p>
+                    <p>A little birthday wish, recorded specially for you.</p>
 
                     <audio controls preload="none">
-                        <source
-                            src="assets/audio/birthday-message.mp3"
-                            type="audio/mpeg"
-                        >
+                        <source src="assets/audio/birthday-message.mp3" type="audio/mpeg">
                         Your browser does not support audio playback.
                     </audio>
-
                 </article>
 
-
-                <!-- Voice Message 2 -->
                 <article class="audio-card">
+                    <h3>A Little Surprise #1 ✨</h3>
 
-                    <h3>
-                        A Funny Little Memory 😂
-                    </h3>
-
-                    <p>
-                        Remember this?
-                        Here's a little reminder.
-                    </p>
+                    <p>A little message saved just for you.</p>
 
                     <audio controls preload="none">
-                        <source
-                            src="assets/audio/funny-memory.mp3"
-                            type="audio/mpeg"
-                        >
+                        <source src="assets/audio/little-surprise-01.mp3" type="audio/mpeg">
                         Your browser does not support audio playback.
                     </audio>
-
                 </article>
 
-
-                <!-- Voice Message 3 -->
                 <article class="audio-card">
+                    <h3>A Little Surprise #2 💜</h3>
 
-                    <h3>
-                        Something I Want You to Know 💜
-                    </h3>
-
-                    <p>
-                        A few words I wanted you to hear
-                        in my own voice.
-                    </p>
+                    <p>Another little message from my heart.</p>
 
                     <audio controls preload="none">
-                        <source
-                            src="assets/audio/appreciation-message.mp3"
-                            type="audio/mpeg"
-                        >
+                        <source src="assets/audio/little-surprise-02.mp3" type="audio/mpeg">
                         Your browser does not support audio playback.
                     </audio>
-
                 </article>
 
-
-                <button
-                    id="open-letter-button"
-                    class="primary-button"
-                    type="button"
-                >
+                <button id="open-letter-button" class="primary-button" type="button">
                     One Last Surprise 💌
                 </button>
 
             </div>
-
         </section>
 
 
-        <!-- SECTION 7: SURPRISE LETTER -->
+        <!-- SECTION 8: SURPRISE LETTER -->
         <section
             id="letter-section"
             class="screen"
             hidden
             aria-labelledby="letter-title"
         >
-
             <div class="letter-content">
 
-                <p class="eyebrow">
-                    SOMETHING WRITTEN JUST FOR YOU
-                </p>
+                <p class="eyebrow">SOMETHING WRITTEN JUST FOR YOU</p>
 
-                <h2 id="letter-title">
-                    A Letter for Awwlie 💌
-                </h2>
+                <h2 id="letter-title">A Letter for Awwlie 💌</h2>
 
                 <p>
-                    Some things are easier to write
-                    than to say aloud.
+                    Some things are easier to write than to say aloud.
                 </p>
 
                 <button
@@ -404,63 +386,45 @@
                     <span>Tap to open your letter</span>
                 </button>
 
+                <article id="surprise-letter" class="surprise-letter" hidden tabindex="-1">
 
-                <!-- Hidden until the envelope is opened -->
-                <article
-                    id="surprise-letter"
-                    class="surprise-letter"
-                    hidden
-                    tabindex="-1"
-                >
+                    <h3>To My Favourite Person,</h3>
 
-                    <h3>
-                        To My Favourite Person,
-                    </h3>
+                    <p>Happy Birthday, Awwlie.</p>
 
                     <p>
-                        Happy Birthday, Awwlie.
+                        This little universe was created to celebrate you,
+                        our memories, and the special bond we share.
                     </p>
 
                     <p>
-                        This little universe was created
-                        to celebrate you, our memories,
-                        and the special bond we share.
-                    </p>
-
-                    <p>
-                        From our first little moments to all
-                        the memories we've made since
-                        2 April 2025, every chapter has
+                        From our first little moments to all the memories
+                        we've made since 2 April 2025, every chapter has
                         its own place in my heart.
                     </p>
 
                     <p>
-                        You aren't just my best friend.
-                        You're family, a comfort person,
-                        and someone with whom even the
-                        smallest moments become memories
-                        worth keeping.
+                        You aren't just my best friend. You're family,
+                        a comfort person, and someone with whom even the
+                        smallest moments become memories worth keeping.
                     </p>
 
                     <p>
-                        No matter how busy life gets or
-                        how much things change, I hope
-                        you always remember how special
-                        you are and how many beautiful
-                        things you deserve in life.
+                        No matter how busy life gets or how much things
+                        change, I hope you always remember how special
+                        you are and how many beautiful things you deserve.
                     </p>
 
                     <p>
-                        I made this little universe because
-                        a simple birthday wish didn't feel
-                        enough for someone as special as you.
+                        I made this little universe because a simple
+                        birthday wish didn't feel enough for someone
+                        as special as you.
                     </p>
 
                     <p>
-                        May your days be filled with laughter,
-                        your dreams find their way to reality,
-                        and your heart always find reasons
-                        to smile.
+                        May your days be filled with laughter, your dreams
+                        find their way to reality, and your heart always
+                        find reasons to smile.
                     </p>
 
                     <p class="letter-signature">
@@ -470,64 +434,44 @@
 
                 </article>
 
-
-                <button
-                    id="final-surprise-button"
-                    class="primary-button"
-                    type="button"
-                    hidden
-                >
+                <button id="final-surprise-button" class="primary-button"
+                    type="button" hidden>
                     One Last Thing ✨
                 </button>
 
             </div>
-
         </section>
 
 
-        <!-- SECTION 8: FINAL SURPRISE -->
+        <!-- SECTION 9: FINAL SURPRISE -->
         <section
             id="final-section"
             class="screen"
             hidden
             aria-labelledby="final-title"
         >
-
             <div class="final-content">
 
-                <div class="moon-icon" aria-hidden="true">
-                    🌙
-                </div>
+                <div class="moon-icon" aria-hidden="true">🌙</div>
 
-                <p class="eyebrow">
-                    END OF THIS LITTLE JOURNEY
-                </p>
+                <p class="eyebrow">END OF THIS LITTLE JOURNEY</p>
 
-                <h2 id="final-title">
-                    Welcome to Awwlieverse.
-                </h2>
+                <h2 id="final-title">Welcome to Awwlieverse.</h2>
 
                 <p>
-                    One little universe.
-                    Countless little memories.
+                    One little universe. Countless little memories.
                     One very special friendship.
                 </p>
 
-                <p class="final-wish">
-                    Happy Birthday, Awwlie! 💜
-                </p>
+                <p class="final-wish">Happy Birthday, Awwlie! 💜</p>
 
                 <p>
-                    Some people make life brighter
-                    simply by being part of it.
+                    Some people make life brighter simply by being part of it.
                 </p>
 
-                <p>
-                    Made especially for you by Manthan.
-                </p>
+                <p>Made especially for you by Manthan.</p>
 
             </div>
-
         </section>
 
     </main>
@@ -543,5 +487,4 @@
     <script src="js/main.js" defer></script>
 
 </body>
-
 </html>
