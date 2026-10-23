@@ -8,15 +8,18 @@
 const BirthdaySurprises = (() => {
 
     let initialized = false;
+    let birthdayCelebrated = false;
+    let finalCelebrated = false;
+
+    let confettiTimeouts = [];
 
     // Get an element safely
     function getElement(id) {
         return document.getElementById(id);
     }
 
-    // Open a section using the shared navigation function
+    // Navigate using the shared section controller
     function showSection(sectionId) {
-
         if (
             window.BirthdayCountdown &&
             typeof window.BirthdayCountdown.showSection === "function"
@@ -29,93 +32,91 @@ const BirthdaySurprises = (() => {
         }
     }
 
-    // Create a confetti piece
-    function createConfetti(container) {
+    // Clear previously scheduled confetti cleanup
+    function clearConfettiTimers() {
+        confettiTimeouts.forEach((timeout) => clearTimeout(timeout));
+        confettiTimeouts = [];
+    }
 
+    // Create one confetti piece
+    function createConfetti(container) {
         const piece = document.createElement("span");
 
         piece.className = "confetti";
-
         piece.setAttribute("aria-hidden", "true");
 
         piece.style.left = `${Math.random() * 100}%`;
-
         piece.style.animationDelay = `${Math.random() * 0.8}s`;
-
-        piece.style.animationDuration =
-            `${2 + Math.random() * 3}s`;
+        piece.style.animationDuration = `${2 + Math.random() * 3}s`;
 
         container.appendChild(piece);
 
-        // Remove the element after its animation
-        setTimeout(() => {
+        const timeout = setTimeout(() => {
             piece.remove();
-        }, 6000);
+        }, 6500);
 
+        confettiTimeouts.push(timeout);
     }
 
-    // Celebrate with confetti
+    // Create a confetti celebration
     function celebrate() {
-
         const container = getElement("confetti-container");
 
-        if (!container) return;
+        if (!container) {
+            console.warn(
+                "AWWLIEVERSE: Confetti container was not found."
+            );
+            return;
+        }
 
-        // Prevent excessive confetti from accumulating
+        clearConfettiTimers();
         container.replaceChildren();
 
         for (let i = 0; i < 70; i++) {
             createConfetti(container);
         }
-
     }
 
-    // Add a small visual celebration to a section
+    // Navigate to a section and celebrate
     function celebrateSection(sectionId) {
-
         showSection(sectionId);
         celebrate();
-
     }
 
-    // Connect birthday reveal to the candle event
+    // Show birthday reveal after the candle goes out
     function setupBirthdayReveal() {
-
         document.addEventListener(
             "awwlie:candle-blown-out",
             () => {
+                if (birthdayCelebrated) return;
 
+                birthdayCelebrated = true;
                 celebrateSection("surprise-section");
-
             }
         );
-
     }
 
     // Celebrate when the final surprise opens
     function setupFinalSurprise() {
-
         document.addEventListener(
             "awwlie:final-surprise-opened",
             () => {
+                if (finalCelebrated) return;
 
+                finalCelebrated = true;
                 celebrate();
-
             }
         );
-
     }
 
-    // Initialize event listeners
+    // Initialize event listeners once
     function init() {
-
         if (initialized) return;
 
         initialized = true;
 
         setupBirthdayReveal();
         setupFinalSurprise();
-
     }
 
     return {
@@ -128,18 +129,13 @@ const BirthdaySurprises = (() => {
 
 window.BirthdaySurprises = BirthdaySurprises;
 
-
-// Initialize after the HTML has loaded
+// Initialize after HTML loads
 if (document.readyState === "loading") {
-
     document.addEventListener(
         "DOMContentLoaded",
         BirthdaySurprises.init,
         { once: true }
     );
-
 } else {
-
     BirthdaySurprises.init();
-
 }
