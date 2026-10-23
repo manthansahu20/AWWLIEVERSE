@@ -1,0 +1,507 @@
+/* =========================================
+   AWWLIEVERSE — Animation Stylesheet
+   Cinematic Birthday Experience
+========================================= */
+
+/* ---------- 1. GENERAL ANIMATIONS ---------- */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(35px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.65);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes zoomOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(0.75);
+    }
+}
+
+/* ---------- 2. SECTION REVEAL ---------- */
+
+section.animate-in {
+    animation: fadeIn 0.9s ease both;
+}
+
+section.animate-in > * {
+    animation: slideUp 0.8s ease both;
+}
+
+section.animate-in > *:nth-child(2) {
+    animation-delay: 0.12s;
+}
+
+section.animate-in > *:nth-child(3) {
+    animation-delay: 0.24s;
+}
+
+section.animate-in > *:nth-child(4) {
+    animation-delay: 0.36s;
+}
+
+/* ---------- 3. INTRO ANIMATION ---------- */
+
+#intro-section h1 {
+    animation: introTitle 1.4s ease both;
+}
+
+@keyframes introTitle {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
+        filter: blur(8px);
+    }
+
+    70% {
+        filter: blur(0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+#intro-section .intro-badge {
+    animation: fadeIn 1s ease both;
+}
+
+#intro-section .intro-subtitle {
+    animation: slideUp 1s 0.3s ease both;
+}
+
+#start-button {
+    animation: buttonAppear 1s 0.6s ease both;
+}
+
+@keyframes buttonAppear {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ---------- 4. FLOATING GLOW ---------- */
+
+@keyframes floatingGlow {
+    0%,
+    100% {
+        box-shadow:
+            0 0 20px rgba(167, 139, 250, 0.15),
+            0 0 45px rgba(255, 143, 199, 0.08);
+    }
+
+    50% {
+        box-shadow:
+            0 0 35px rgba(167, 139, 250, 0.35),
+            0 0 65px rgba(255, 143, 199, 0.2);
+    }
+}
+
+.glass-card {
+    animation: floatingGlow 5s ease-in-out infinite;
+}
+
+/* ---------- 5. COUNTDOWN ---------- */
+
+#countdown-number {
+    animation: countdownPulse 1s ease-in-out infinite;
+}
+
+@keyframes countdownPulse {
+    0% {
+        transform: scale(0.85);
+        opacity: 0.65;
+    }
+
+    50% {
+        transform: scale(1.08);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(0.85);
+        opacity: 0.65;
+    }
+}
+
+#countdown-number.countdown-change {
+    animation: countdownChange 0.45s ease both;
+}
+
+@keyframes countdownChange {
+    0% {
+        transform: scale(1.3);
+        opacity: 0;
+        filter: blur(5px);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+        filter: blur(0);
+    }
+}
+
+/* ---------- 6. CANDLE FLAME ---------- */
+
+.candle-flame {
+    transform-origin: center bottom;
+    animation: flameFlicker 0.65s ease-in-out infinite alternate;
+}
+
+@keyframes flameFlicker {
+    0% {
+        transform: translateX(-50%) rotate(-5deg) scale(0.92);
+        filter: drop-shadow(0 0 8px #ffad58);
+    }
+
+    100% {
+        transform: translateX(-50%) rotate(5deg) scale(1.08);
+        filter: drop-shadow(0 0 18px #ffcf79);
+    }
+}
+
+/* Candle extinguishing animation */
+
+.candle-flame.blown-out {
+    animation: flameExtinguish 0.45s ease forwards;
+}
+
+@keyframes flameExtinguish {
+    0% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+        filter: blur(0);
+    }
+
+    45% {
+        opacity: 0.8;
+        transform: translateX(-50%) scale(0.65, 1.2);
+        filter: blur(2px);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) scale(0);
+        filter: blur(8px);
+    }
+}
+
+/* ---------- 7. CAKE APPEARANCE ---------- */
+
+.cake-container {
+    animation: cakeEntrance 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes cakeEntrance {
+    0% {
+        opacity: 0;
+        transform: translateY(60px) scale(0.75);
+    }
+
+    65% {
+        opacity: 1;
+        transform: translateY(-8px) scale(1.04);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.cake {
+    transform-origin: center bottom;
+}
+
+/* ---------- 8. FLOATING HEARTS ---------- */
+
+.floating-heart {
+    position: fixed;
+    bottom: -40px;
+
+    z-index: 5;
+    pointer-events: none;
+
+    color: #ff8fc7;
+    opacity: 0;
+
+    animation: heartFloat 6s linear forwards;
+}
+
+@keyframes heartFloat {
+    0% {
+        opacity: 0;
+        transform: translateY(0) rotate(0deg) scale(0.7);
+    }
+
+    15% {
+        opacity: 0.85;
+    }
+
+    80% {
+        opacity: 0.6;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-110vh) rotate(35deg) scale(1.3);
+    }
+}
+
+/* ---------- 9. GALLERY ---------- */
+
+.photo-card {
+    animation: photoReveal 0.8s ease both;
+}
+
+.photo-card:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.photo-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+@keyframes photoReveal {
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ---------- 10. VOICE CARDS ---------- */
+
+.voice-card {
+    animation: voiceReveal 0.8s ease both;
+}
+
+.voice-card:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.voice-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+@keyframes voiceReveal {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ---------- 11. ENVELOPE ---------- */
+
+.envelope {
+    animation: envelopeFloat 3s ease-in-out infinite;
+}
+
+@keyframes envelopeFloat {
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-9px) rotate(2deg);
+    }
+}
+
+.envelope.opening {
+    animation: envelopeOpen 0.7s ease forwards;
+}
+
+@keyframes envelopeOpen {
+    0% {
+        transform: scale(1) rotate(0);
+    }
+
+    50% {
+        transform: scale(1.12) rotate(-5deg);
+    }
+
+    100% {
+        transform: scale(0.9) rotate(0);
+    }
+}
+
+/* ---------- 12. LETTER REVEAL ---------- */
+
+#surprise-letter.letter-reveal {
+    animation: letterReveal 1s ease both;
+}
+
+@keyframes letterReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(25px) scale(0.96);
+        filter: blur(5px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+/* ---------- 13. FINAL SURPRISE ---------- */
+
+#final-section .final-symbol {
+    animation: finalSymbolGlow 2.5s ease-in-out infinite;
+}
+
+@keyframes finalSymbolGlow {
+    0%,
+    100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 10px rgba(255, 143, 199, 0.3));
+    }
+
+    50% {
+        transform: scale(1.08);
+        filter: drop-shadow(0 0 25px rgba(255, 143, 199, 0.8));
+    }
+}
+
+/* ---------- 14. SPARKLE EFFECT ---------- */
+
+.sparkle {
+    position: absolute;
+    pointer-events: none;
+
+    color: #fff1bd;
+    font-size: 18px;
+
+    animation: sparkleEffect 1.5s ease-out forwards;
+}
+
+@keyframes sparkleEffect {
+    0% {
+        opacity: 0;
+        transform: scale(0.2) rotate(0deg);
+    }
+
+    40% {
+        opacity: 1;
+        transform: scale(1.2) rotate(90deg);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0.3) rotate(180deg);
+    }
+}
+
+/* ---------- 15. BUTTON SHINE ---------- */
+
+.primary-button {
+    position: relative;
+    overflow: hidden;
+}
+
+.primary-button::after {
+    content: "";
+    position: absolute;
+
+    top: -50%;
+    left: -80%;
+
+    width: 45%;
+    height: 200%;
+
+    background: rgba(255, 255, 255, 0.35);
+    transform: rotate(25deg);
+
+    transition: left 0.65s ease;
+}
+
+.primary-button:hover::after {
+    left: 140%;
+}
+
+/* ---------- 16. ACCESSIBILITY ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
