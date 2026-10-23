@@ -3,323 +3,423 @@
    Mobile | Tablet | Desktop
 ========================================= */
 
-
 /* ---------- 1. LARGE SCREENS ---------- */
 
 @media screen and (min-width: 1200px) {
-
-    section {
-        padding: 100px 60px;
+    main section {
+        padding: 90px 50px;
     }
 
-    .gallery-grid {
+    .gallery-grid,
+    .memory-gallery-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 25px;
+        max-width: 1100px;
+        margin-inline: auto;
     }
 
     .photo-card img {
-        height: 320px;
+        height: 300px;
     }
 
-    .voice-grid {
-        gap: 25px;
+    .audio-card,
+    .voice-card {
+        max-width: 850px;
+        margin-inline: auto;
     }
 
+    .cover-photo {
+        max-height: 360px;
+        object-fit: cover;
+    }
 }
-
 
 /* ---------- 2. TABLETS & SMALL LAPTOPS ---------- */
 
-@media screen and (max-width: 1024px) {
-
-    section {
-        padding: 75px 30px;
+@media screen and (min-width: 601px) and (max-width: 1199px) {
+    main section {
+        padding: 70px 28px;
     }
 
-    section h1 {
-        font-size: clamp(2.3rem, 6vw, 3.8rem);
+    main section h1 {
+        font-size: clamp(2.3rem, 5.5vw, 3.5rem);
     }
 
-    .gallery-grid {
+    .gallery-grid,
+    .memory-gallery-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        max-width: 750px;
-    }
-
-    .photo-card img {
-        height: 280px;
-    }
-
-    .voice-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        max-width: 750px;
-    }
-
-}
-
-
-/* ---------- 3. MOBILE PHONES ---------- */
-
-@media screen and (max-width: 600px) {
-
-    /* Overall layout */
-
-    body {
-        font-size: 15px;
-    }
-
-    section {
-        min-height: 100svh;
-        padding: 65px 18px;
-    }
-
-    section h1 {
-        font-size: clamp(2rem, 9vw, 3rem);
-        letter-spacing: -0.5px;
-        margin-bottom: 18px;
-    }
-
-    section h2 {
-        font-size: clamp(1.65rem, 7vw, 2.3rem);
-        margin-bottom: 16px;
-    }
-
-    section h3 {
-        font-size: 1.1rem;
-    }
-
-    section p {
-        font-size: 0.95rem;
-        line-height: 1.8;
-    }
-
-
-    /* Intro section */
-
-    .intro-badge {
-        font-size: 0.72rem;
-        padding: 7px 14px;
-        letter-spacing: 0.5px;
-        margin-bottom: 20px;
-    }
-
-    .intro-subtitle {
-        font-size: 1rem;
-        max-width: 340px;
-    }
-
-
-    /* Buttons */
-
-    .primary-button,
-    .secondary-button {
-        min-height: 48px;
-        padding: 13px 20px;
-        font-size: 0.9rem;
-        margin: 8px 3px;
-    }
-
-
-    /* Countdown */
-
-    #countdown-number {
-        width: 145px;
-        height: 145px;
-        font-size: 4rem;
-    }
-
-
-    /* Birthday cake */
-
-    .cake-container {
-        transform: scale(0.9);
-        margin: 10px auto;
-    }
-
-    #cake-message {
-        max-width: 320px;
-    }
-
-
-    /* Glass cards */
-
-    .glass-card {
-        padding: 22px 17px;
-        border-radius: 20px;
-        margin: 14px auto;
-    }
-
-
-    /* Photo gallery */
-
-    .gallery-grid {
-        grid-template-columns: 1fr;
-        gap: 22px;
-        max-width: 360px;
-        margin: 24px auto;
-    }
-
-    .photo-card {
-        padding: 8px;
-    }
-
-    .photo-card img {
-        width: 100%;
-        height: 320px;
-        border-radius: 13px;
-        object-fit: cover;
-    }
-
-    .photo-caption {
-        font-size: 0.9rem;
-        padding: 12px 5px 6px;
-    }
-
-
-    /* Voice message cards */
-
-    .voice-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-        max-width: 360px;
-        margin: 24px auto;
-    }
-
-    .voice-card {
-        padding: 22px 17px;
-        border-radius: 20px;
-    }
-
-    .voice-card audio {
-        width: 100%;
-        max-width: 100%;
-    }
-
-
-    /* Letter and envelope */
-
-    .envelope {
-        width: 165px;
-        height: 115px;
-        font-size: 2.7rem;
-    }
-
-    #surprise-letter {
-        padding: 20px 17px;
-        font-size: 0.94rem;
-        line-height: 1.9;
-        overflow-wrap: anywhere;
-    }
-
-
-    /* Final surprise */
-
-    .final-symbol {
-        font-size: 4rem;
-    }
-
-
-    /* Prevent oversized effects */
-
-    #confetti-container {
-        overflow: hidden;
-    }
-
-}
-
-
-/* ---------- 4. VERY SMALL PHONES ---------- */
-
-@media screen and (max-width: 360px) {
-
-    section {
-        padding: 55px 13px;
-    }
-
-    section h1 {
-        font-size: 1.9rem;
-    }
-
-    section h2 {
-        font-size: 1.55rem;
-    }
-
-    section p {
-        font-size: 0.9rem;
-    }
-
-    #countdown-number {
-        width: 125px;
-        height: 125px;
-        font-size: 3.4rem;
-    }
-
-    .cake-container {
-        transform: scale(0.8);
-        margin: 0 auto;
-    }
-
-    .primary-button,
-    .secondary-button {
-        padding: 12px 16px;
-        font-size: 0.85rem;
+        gap: 20px;
+        max-width: 800px;
+        margin-inline: auto;
     }
 
     .photo-card img {
         height: 270px;
     }
 
-    .glass-card {
-        padding: 18px 13px;
+    .cover-photo-container {
+        max-width: 340px;
+        margin-inline: auto;
     }
 
+    .cover-photo {
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .audio-card,
+    .voice-card {
+        max-width: 700px;
+        margin-inline: auto;
+    }
 }
 
+/* ---------- 3. MOBILE PHONES ---------- */
+
+@media screen and (max-width: 600px) {
+    html {
+        font-size: 15px;
+    }
+
+    body {
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    main section {
+        min-height: 100svh;
+        padding: 60px 17px;
+    }
+
+    main section h1 {
+        font-size: clamp(2rem, 9vw, 3rem);
+        line-height: 1.15;
+        letter-spacing: -0.5px;
+        margin-bottom: 17px;
+        overflow-wrap: anywhere;
+    }
+
+    main section h2 {
+        font-size: clamp(1.55rem, 7vw, 2.2rem);
+        line-height: 1.25;
+        margin-bottom: 15px;
+    }
+
+    main section h3 {
+        font-size: 1.1rem;
+    }
+
+    main section p {
+        font-size: 0.95rem;
+        line-height: 1.75;
+    }
+
+    /* Intro */
+
+    .intro-badge {
+        font-size: 0.72rem;
+        padding: 7px 12px;
+        letter-spacing: 0.4px;
+        margin-bottom: 17px;
+    }
+
+    .intro-subtitle {
+        max-width: 340px;
+        margin-inline: auto;
+        font-size: 1rem;
+    }
+
+    .cover-photo-container {
+        width: min(78%, 280px);
+        margin: 20px auto;
+    }
+
+    .cover-photo {
+        display: block;
+        width: 100%;
+        max-height: 300px;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    /* Buttons */
+
+    .primary-button,
+    .secondary-button,
+    .envelope-button {
+        max-width: 100%;
+        min-height: 46px;
+        padding: 12px 17px;
+        font-size: 0.9rem;
+        margin: 7px 2px;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    /* Countdown */
+
+    #countdown-number {
+        width: 140px;
+        height: 140px;
+        max-width: 42vw;
+        max-height: 42vw;
+        font-size: 3.8rem;
+    }
+
+    /* Cake */
+
+    .cake-container {
+        transform: scale(0.88);
+        margin: 8px auto;
+        max-width: 100%;
+    }
+
+    #cake-message,
+    #cake-timer {
+        max-width: 320px;
+        margin-inline: auto;
+    }
+
+    /* Glass cards */
+
+    .glass-card {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        padding: 21px 16px;
+        border-radius: 19px;
+        margin: 13px auto;
+    }
+
+    /* Main and memory galleries */
+
+    .gallery-grid,
+    .memory-gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        width: 100%;
+        max-width: 100%;
+        margin: 22px auto;
+    }
+
+    .photo-card {
+        min-width: 0;
+        padding: 6px;
+        box-sizing: border-box;
+    }
+
+    .photo-card img {
+        display: block;
+        width: 100%;
+        height: clamp(135px, 43vw, 220px);
+        object-fit: cover;
+        border-radius: 11px;
+    }
+
+    .photo-caption {
+        font-size: 0.78rem;
+        line-height: 1.45;
+        padding: 9px 3px 5px;
+        overflow-wrap: anywhere;
+    }
+
+    /* Voice messages */
+
+    .voice-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 15px;
+        width: 100%;
+        max-width: 380px;
+        margin: 22px auto;
+    }
+
+    .voice-card,
+    .audio-card {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        padding: 19px 15px;
+        border-radius: 18px;
+    }
+
+    .voice-card audio,
+    .audio-card audio {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* Letter and envelope */
+
+    .envelope {
+        max-width: 100%;
+        font-size: 2.5rem;
+    }
+
+    #surprise-letter {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        padding: 19px 15px;
+        font-size: 0.94rem;
+        line-height: 1.85;
+        overflow-wrap: anywhere;
+    }
+
+    /* Final surprise */
+
+    .final-symbol {
+        font-size: 3.8rem;
+    }
+
+    /* Music button */
+
+    .music-toggle {
+        right: 12px;
+        bottom: 12px;
+        max-width: calc(100vw - 24px);
+        font-size: 0.8rem;
+    }
+
+    /* Photo viewer */
+
+    .photo-viewer {
+        width: calc(100% - 24px);
+        max-width: 100%;
+        max-height: 90svh;
+        padding: 12px;
+        box-sizing: border-box;
+    }
+
+    .photo-viewer img {
+        display: block;
+        width: 100%;
+        max-height: 72svh;
+        object-fit: contain;
+    }
+
+    #confetti-container {
+        overflow: hidden;
+    }
+}
+
+/* ---------- 4. VERY SMALL PHONES ---------- */
+
+@media screen and (max-width: 360px) {
+    main section {
+        padding: 50px 12px;
+    }
+
+    main section h1 {
+        font-size: 1.85rem;
+    }
+
+    main section h2 {
+        font-size: 1.5rem;
+    }
+
+    main section p {
+        font-size: 0.9rem;
+    }
+
+    .cover-photo-container {
+        width: min(82%, 240px);
+    }
+
+    #countdown-number {
+        width: 120px;
+        height: 120px;
+        font-size: 3.2rem;
+    }
+
+    .cake-container {
+        transform: scale(0.78);
+        margin: 0 auto;
+    }
+
+    .primary-button,
+    .secondary-button,
+    .envelope-button {
+        padding: 11px 13px;
+        font-size: 0.84rem;
+    }
+
+    .gallery-grid,
+    .memory-gallery-grid {
+        gap: 8px;
+    }
+
+    .photo-card {
+        padding: 4px;
+    }
+
+    .photo-card img {
+        height: 135px;
+    }
+
+    .glass-card {
+        padding: 17px 12px;
+    }
+}
 
 /* ---------- 5. LANDSCAPE MOBILE ---------- */
 
 @media screen and (max-height: 500px) and (orientation: landscape) {
-
-    section {
+    main section {
         min-height: 100svh;
-        padding: 35px 20px;
+        padding: 30px 20px;
     }
 
-    section h1 {
+    main section h1 {
         font-size: 2.2rem;
     }
 
     #countdown-number {
-        width: 110px;
-        height: 110px;
-        font-size: 3rem;
+        width: 105px;
+        height: 105px;
+        font-size: 2.8rem;
+    }
+
+    .cover-photo-container {
+        width: 160px;
+        margin: 12px auto;
+    }
+
+    .cover-photo {
+        max-height: 180px;
     }
 
     .cake-container {
-        transform: scale(0.75);
+        transform: scale(0.72);
         margin: 0 auto;
     }
 
+    .photo-viewer img {
+        max-height: 65svh;
+        object-fit: contain;
+    }
 }
-
 
 /* ---------- 6. TOUCH DEVICES ---------- */
 
 @media (hover: none) {
-
     .photo-card:hover,
     .voice-card:hover,
+    .audio-card:hover,
     .envelope:hover,
+    .envelope-button:hover,
     .primary-button:hover,
-    .secondary-button:hover {
+    .secondary-button:hover,
+    .cover-photo-container:hover .cover-photo {
         transform: none;
     }
-
 }
-
 
 /* ---------- 7. REDUCED MOTION ---------- */
 
 @media (prefers-reduced-motion: reduce) {
-
     html {
         scroll-behavior: auto;
     }
@@ -331,5 +431,4 @@
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
     }
-
 }
