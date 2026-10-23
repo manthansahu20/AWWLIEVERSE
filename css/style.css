@@ -849,3 +849,60 @@ button:disabled {
         transition-duration: 0.01ms !important;
     }
    }
+/* =========================================
+   MOBILE MUSIC BUTTON FIX
+   ========================================= */
+
+.music-toggle {
+    position: fixed;
+    right: 16px;
+    bottom: 75px;
+    top: auto;
+    left: auto;
+    z-index: 9999;
+
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+
+    background: linear-gradient(145deg, #f7a8e4, #a78bfa);
+    color: #281536;
+
+    font-size: 0;
+    box-shadow: 0 5px 20px rgba(167, 139, 250, 0.35);
+
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Music symbol */
+.music-toggle::before {
+    content: "♫";
+    font-size: 25px;
+    line-height: 1;
+}
+
+/* Visible focus for keyboard users */
+.music-toggle:focus-visible {
+    outline: 3px solid #ffffff;
+    outline-offset: 4px;
+}
+
+/* Desktop styling remains unchanged */
+@media (min-width: 769px) {
+    .music-toggle {
+        width: 56px;
+        height: 56px;
+        min-width: 56px;
+        right: 24px;
+        bottom: 24px;
+    }
+}
