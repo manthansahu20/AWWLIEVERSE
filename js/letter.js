@@ -2,13 +2,13 @@
 
 /* =========================================
    AWWLIEVERSE — SURPRISE LETTER
-   Created with love by Manthan
-   ========================================= */
+   A special birthday letter for Awwlie
+========================================= */
 
 const SurpriseLetter = (() => {
-
     let initialized = false;
     let letterOpened = false;
+    let finalButtonHandled = false;
 
     const elements = {
         openButton: null,
@@ -16,24 +16,28 @@ const SurpriseLetter = (() => {
         finalButton: null
     };
 
-    // Open a section using the shared navigation function
+    /**
+     * Navigate to a section using the shared navigation system.
+     */
     function showSection(sectionId) {
-
         if (
             window.BirthdayCountdown &&
             typeof window.BirthdayCountdown.showSection === "function"
         ) {
-            window.BirthdayCountdown.showSection(sectionId);
-        } else {
-            console.error(
-                "AWWLIEVERSE: Section navigation is unavailable."
-            );
+            return window.BirthdayCountdown.showSection(sectionId);
         }
+
+        console.error(
+            "AWWLIEVERSE: Section navigation is unavailable."
+        );
+
+        return false;
     }
 
-    // Reveal the surprise letter
+    /**
+     * Reveal the surprise letter.
+     */
     function openLetter() {
-
         if (letterOpened) return;
 
         if (!elements.letter || !elements.openButton) {
@@ -45,62 +49,86 @@ const SurpriseLetter = (() => {
 
         letterOpened = true;
 
-        // Show the letter
         elements.letter.hidden = false;
+        elements.letter.classList.remove("letter-reveal");
+
+        // Restart the letter entrance animation.
+        void elements.letter.offsetWidth;
         elements.letter.classList.add("letter-reveal");
 
-        // Update the envelope button
         elements.openButton.innerHTML =
-            '<span aria-hidden="true">💌</span>' +
+            '<span aria-hidden="true">💌</span> ' +
             '<span>Your letter is open</span>';
 
-        elements.openButton.setAttribute(
-            "aria-expanded",
-            "true"
-        );
+        elements.openButton.setAttribute("aria-expanded", "true");
+        elements.openButton.disabled = true;
 
-        // Reveal the final surprise button
         if (elements.finalButton) {
             elements.finalButton.hidden = false;
         }
 
-        // Bring the letter into view
-        setTimeout(() => {
+        // Bring the letter into view after the reveal.
+        window.setTimeout(() => {
             elements.letter.scrollIntoView({
-                behavior: "smooth",
+                behavior: window.matchMedia(
+                    "(prefers-reduced-motion: reduce)"
+                ).matches ? "auto" : "smooth",
                 block: "center"
-            });
-
-            elements.letter.focus({
-                preventScroll: true
             });
         }, 150);
 
-        // Notify other JavaScript files
         document.dispatchEvent(
             new CustomEvent("awwlie:letter-opened")
         );
-
     }
 
-    // Connect the final surprise button
-    function setupFinalButton() {
+    /**
+     * Open the final surprise.
+     */
+    function openFinalSurprise() {
+        if (finalButtonHandled) return;
 
-        if (!elements.finalButton) return;
+        if (!letterOpened) {
+            openLetter();
+            return;
+        }
 
-        elements.finalButton.addEventListener("click", () => {
-            showSection("final-section");
+        finalButtonHandled = true;
 
-            document.dispatchEvent(
-                new CustomEvent("awwlie:final-surprise-opened")
+        const opened = showSection("final-section");
+
+        if (!opened) {
+            finalButtonHandled = false;
+            return;
+        }
+
+        document.dispatchEvent(
+            new CustomEvent("awwlie:final-surprise-opened")
+        );
+    }
+
+    /**
+     * Connect the page buttons.
+     */
+    function setupButtons() {
+        if (elements.openButton) {
+            elements.openButton.setAttribute("aria-expanded", "false");
+            elements.openButton.addEventListener("click", openLetter);
+        }
+
+        if (elements.finalButton) {
+            elements.finalButton.hidden = true;
+            elements.finalButton.addEventListener(
+                "click",
+                openFinalSurprise
             );
-        });
-
+        }
     }
 
-    // Initialize all letter interactions
+    /**
+     * Initialize the letter system once.
+     */
     function init() {
-
         if (initialized) return;
 
         initialized = true;
@@ -117,38 +145,29 @@ const SurpriseLetter = (() => {
             "final-surprise-button"
         );
 
-        if (elements.openButton) {
-            elements.openButton.addEventListener(
-                "click",
-                openLetter
-            );
+        if (elements.letter) {
+            elements.letter.hidden = true;
+            elements.letter.setAttribute("tabindex", "-1");
         }
 
-        setupFinalButton();
-
+        setupButtons();
     }
 
     return {
         init,
         openLetter
     };
-
 })();
 
 window.SurpriseLetter = SurpriseLetter;
 
-
-// Initialize after the HTML has loaded
+// Initialize when the HTML is ready.
 if (document.readyState === "loading") {
-
     document.addEventListener(
         "DOMContentLoaded",
         SurpriseLetter.init,
         { once: true }
     );
-
 } else {
-
     SurpriseLetter.init();
-
 }
